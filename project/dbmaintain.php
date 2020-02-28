@@ -10,7 +10,7 @@
         Enter Attraction info:
         <input type="text" name="name">
 		<input type="text" name="country">
-		<input type="text" name="continent">
+		
         <br>
                           
 		<input type="hidden" name="form_submitted" value="1" />
