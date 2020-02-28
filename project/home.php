@@ -47,7 +47,7 @@ try {
     foreach($countrylist as $country){
       $country = $country['name'];
       //print_r( $country);
-      $SQLstatementAttractions = "SELECT name FROM attractions WHERE country = '$country'";
+      $SQLstatementAttractions = "SELECT * FROM attractions WHERE country = '$country'";
       $rows2 = [];
       $result2 = mysqli_query($conn, $SQLstatementAttractions);
       $attractionslist = array();
@@ -114,37 +114,39 @@ console.log(javascript_array['America'][0]['attractions'][0]);
     <ul id="attractions">
     </ul>
   </div>  
-    
-  <div class="grid-item">4</div>
-  <div class="grid-item">5</div>
-  <div class="grid-item">6</div>  
-  <div class="grid-item">7</div>
+  <div class="grid-item">
+    <div class="dropdown">
+        <h3 style="margin:0px; padding:0px">Popular attractions</h3>
+        <button class="dropbtn" >Select</button>
+        <div class="dropdown-content">
+          <a onclick="selectAttraction (0, 'America', 0)" href="#" >CN tower</a>
+          <a onclick="selectAttraction (, 'Africa', 0)" href="#">Amboseli National Park</a>
+          <a onclick="selectAttraction (1, 'America', 0)" href="#">Grand Canyon</a>
+          <a onclick="selectAttraction (1, 'America', 1)" href="#">Mount Rushmore</a>
+          <a onclick="selectAttraction (1, 'Europe', 0)" href="#">Keukenhof</a>
+        </div>
+      </div>
+  </div> 
+  <div class="grid-item" style="grid-column: 2 / span 2;">
+    <h2 id="atrHeadline">Attraction!</h2>
+    <img id="atrimg" style="width:50%" class="attractin-img" src="">
+  </div>
+  <!-- <div class="grid-item">6</div>   -->
+  <!--<div class="grid-item">7</div>
   <div class="grid-item">8</div>
-  <div class="grid-item">9</div>  
+  <div class="grid-item">9</div>   -->
 </div>
 
+<!-- <h2 class="nothing" id="atrHeadline">Attraction!</h2>
+<img class="nothing" id="atrimg" style="width:50%" class="attractin-img" src=""> -->
 
 
 <div style="padding: 100px;">
 
 </div>
 
-<!-- 
-<div class="dropdown">
-  <button class="dropbtn">Dropdown</button>
-  <div class="dropdown-content">
-    <a href="#">Link 1</a>
-    <a href="#">Link 2</a>
-    <a href="#">Link 3</a>
-  </div>
-</div> -->
 
 
-
-
-<div id="div2">TEster variable</div>
-
-<button>BUTTON</button>
 <script>
 
   var selectedContinent = "";
@@ -164,19 +166,19 @@ console.log(javascript_array['America'][0]['attractions'][0]);
       var node = document.createTextNode(country);
       countryelement.classList.add("dropbtn");
       countryelement.appendChild(node);
-      countryelement.onclick = (function(i){
+      countryelement.onclick = (function(i, continent){
         return function(){
-            selectCountry(i);
+            selectCountry(i, continent);
         }
-      })(i);
+      })(i, continent);
 
       listelement.appendChild(countryelement);
     }
   }
 
-  function selectCountry(index) {
+  function selectCountry(Countryindex, continent) {
     //country = javascript_array[continent];
-    attractions = javascript_array[selectedContinent][index]['attractions'];
+    attractions = javascript_array[continent][Countryindex]['attractions'];
     console.log(attractions);
  
     //get the list element and clear it before adding in the countries that are slected
@@ -191,11 +193,29 @@ console.log(javascript_array['America'][0]['attractions'][0]);
       var node = document.createTextNode(attraction);
       attractionelement.classList.add("dropbtn");
       attractionelement.appendChild(node);
+      attractionelement.onclick = (function(Countryindex, continent, i){
+        return function(){
+          selectAttraction(Countryindex, continent, i);
+        }
+      })(Countryindex, continent, i);
       attractionslist.appendChild(attractionelement);
     }
   }
 
+  function selectAttraction (Countryindex, continent, attractionIndex) {
+    attraction2 = javascript_array[continent][Countryindex]['attractions'][attractionIndex];
+    //change image url
+    console.log(attraction2['imageURL']);
+    var atrimage = document.getElementById("atrimg");
+    atrimage.src = attraction2['imageURL'];
 
+    //change headline
+    var atrHeadline = document.getElementById("atrHeadline");
+    atrHeadline.innerHTML = attraction2['name'];
+
+
+
+  }
 
 </script>
 
