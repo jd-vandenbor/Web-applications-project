@@ -29,9 +29,11 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `attractions` (
+ID int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `country` varchar(255) DEFAULT NULL,
-  `imageURL` varchar(255) DEFAULT NULL
+  `imageURL` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (ID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
