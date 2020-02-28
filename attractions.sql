@@ -69,7 +69,7 @@ INSERT INTO `attractions` (`name`, `country`, `imageURL`) VALUES
 --
 -- Indexes for table `attractions`
 --
-ALTER TABLE `attractions`
+/*ALTER TABLE `attractions`
   ADD PRIMARY KEY (`name`),
   ADD KEY `country` (`country`);
 
@@ -83,7 +83,7 @@ ALTER TABLE `attractions`
 ALTER TABLE `attractions`
   ADD CONSTRAINT `attractions_ibfk_1` FOREIGN KEY (`country`) REFERENCES `country` (`name`);
 COMMIT;
-
+*/
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
