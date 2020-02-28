@@ -82,7 +82,8 @@ console.log(javascript_array['America'][0]['attractions'][0]);
 
 
 <body>
-
+<a href="dbmaintain.php">Database maintenance</a>
+<br>
 <ul class="nav">
   <li class="navelement"><a class="active" href="#home">Home</a></li>
   <li class="navelement"><a href="#news">About us</a></li>
