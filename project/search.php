@@ -21,12 +21,12 @@ catch (PDOException $e){
 }
 try {
 	$name =$_POST['name'];
-	$selectsql = "SELECT name, country, continent FROM attractions WHERE name LIKE '%$name%' ";
+	$selectsql = "SELECT name, country FROM attractions WHERE name LIKE '%$name%' ";
 	$result = $conn->query($selectsql);
 
-	echo "<table class=\"searchresults\"><tr><th>Name</th><th>Country</th><th>Continent</th></tr>";
+	echo "<table class=\"searchresults\"><tr><th>Name</th><th>Country</th></tr>";
 	while($row = $result->fetch()) {
-		echo "<tr><td>".$row['name']."</td><td>".$row['country']." ".$row['continent']."</td></tr>";
+		echo "<tr><td>".$row['name']."</td><td>".$row['country']." "."</td></tr>";
 	}
 	echo "</table>";
 	echo"<br>";
