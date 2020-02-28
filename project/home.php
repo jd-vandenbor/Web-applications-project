@@ -34,34 +34,35 @@ try {
     $SQLstatement = "SELECT name FROM country WHERE continent = '$continent'";
     $rows = [];
     $result = mysqli_query($conn, $SQLstatement);
-    $datas = array(); 
+    $countrylist = array(); 
     if (mysqli_num_rows($result) > 0) {
       while($row = mysqli_fetch_assoc($result)){
-        array_push($datas, $row);
+        array_push($countrylist, $row);
       }
     }
 
-    $continentsArray[$continent] = $datas;
+    $continentsArray[$continent] = $countrylist;
+
+    $count = 0;
+    foreach($countrylist as $country){
+      $country = $country['name'];
+      //print_r( $country);
+      $SQLstatementAttractions = "SELECT name FROM attractions WHERE country = '$country'";
+      $rows2 = [];
+      $result2 = mysqli_query($conn, $SQLstatementAttractions);
+      $attractionslist = array();
+      if (mysqli_num_rows($result2) > 0) {
+        while($rows2 = mysqli_fetch_assoc($result2)){
+          array_push($attractionslist, $rows2);
+          //print_r($rows2);
+        }
+      }
+
+      $continentsArray[$continent][$count]['attractions'] =  $attractionslist;   
+      $count +=1;
+    }
 
   }
-
-
-
-
-  // $Africa = "SELECT name FROM country WHERE continent = 'Africa'";
-  // $rows = [];
-  // $result = mysqli_query($conn, $Africa);
-  // $datas = array(); 
-  // if (mysqli_num_rows($result) > 0) {
-  //   while($row = mysqli_fetch_assoc($result)){
-  //     array_push($datas, $row);
-  //   }
-  // }
-  // //print_r($datas);
-
-  // foreach ($datas as $data) {
-  //   echo $data['name']; 
-  // } 
 
 }
 catch (PDOException $dbse){
@@ -75,7 +76,7 @@ $js_array = json_encode($continentsArray);
 echo "var javascript_array = ". $js_array . ";\n";
 ?>
 
-//console.log(javascript_array['Africa'][0]['name']);
+console.log(javascript_array['America'][0]['attractions'][0]);
 </script>
 
 
@@ -92,7 +93,8 @@ echo "var javascript_array = ". $js_array . ";\n";
 <div class="grid-container">
   <div class="grid-item">
     <div class="dropdown">
-      <button class="dropbtn">Dropdown</button>
+      <h3 style="margin:0px; padding:0px">Continent</h3>
+      <button class="dropbtn" >Select</button>
       <div class="dropdown-content">
         <a onclick="selectContinent(this.innerHTML)" href="#" >Africa</a>
         <a onclick="selectContinent(this.innerHTML)" href="#">America</a>
@@ -103,10 +105,16 @@ echo "var javascript_array = ". $js_array . ";\n";
     </div>
   </div>
   <div class="grid-item">
+    <h3 style="margin:0px; padding:0px">Countries</h3>
     <ul id="countries">
     </ul>
   </div>
-  <div class="grid-item">3</div>  
+  <div class="grid-item">
+    <h3 style="margin:0px; padding:0px">Attractions</h3>
+    <ul id="attractions">
+    </ul>
+  </div>  
+    
   <div class="grid-item">4</div>
   <div class="grid-item">5</div>
   <div class="grid-item">6</div>  
@@ -139,10 +147,11 @@ echo "var javascript_array = ". $js_array . ";\n";
 <button>BUTTON</button>
 <script>
 
-
+  var selectedContinent = "";
   function selectContinent(continent) {
-
+    selectedContinent = continent;
     countries = javascript_array[continent];
+    console.log(countries);
     //get the list element and clear it before adding in the countries that are slected
     var listelement = document.getElementById("countries");
     //clear the list
@@ -153,10 +162,40 @@ echo "var javascript_array = ". $js_array . ";\n";
       country = countries[i]['name'];
       var countryelement = document.createElement("li");
       var node = document.createTextNode(country);
+      countryelement.classList.add("dropbtn");
       countryelement.appendChild(node);
+      countryelement.onclick = (function(i){
+        return function(){
+            selectCountry(i);
+        }
+      })(i);
+
       listelement.appendChild(countryelement);
     }
   }
+
+  function selectCountry(index) {
+    //country = javascript_array[continent];
+    attractions = javascript_array[selectedContinent][index]['attractions'];
+    console.log(attractions);
+ 
+    //get the list element and clear it before adding in the countries that are slected
+    var attractionslist = document.getElementById("attractions");
+    //clear the list
+    while( attractionslist.firstChild ){
+      attractionslist.removeChild( attractionslist.firstChild );
+    }
+    for (i=0; i < attractions.length; i++){
+      attraction = attractions[i]['name'];
+      var attractionelement = document.createElement("li");
+      var node = document.createTextNode(attraction);
+      attractionelement.classList.add("dropbtn");
+      attractionelement.appendChild(node);
+      attractionslist.appendChild(attractionelement);
+    }
+  }
+
+
 
 </script>
 
