@@ -1,4 +1,5 @@
 <?php
+session_start();
 $servername = "localhost";
 $username = "name";
 $password = "cps630cps";
@@ -14,15 +15,15 @@ catch (PDOException $e){
 }
 try {
 	$name =$_POST['name'];
-	$selectsql = "SELECT name, country FROM attractions WHERE name = '$name' ";
+	$selectsql = "SELECT name, country, continent FROM attractions WHERE name = '$name' ";
 	$result = $conn->query($selectsql);
 
-	echo "<table><tr><th>Name</th><th>Country</th></tr>";
-
+	echo "<table class=\"searchresults\"><tr><th>Name</th><th>Country</th><th>Continent</th><th>Raiting</th><th>Price</th></tr>";
 	while($row = $result->fetch()) {
-		echo "<tr><td>".$row['name']."</td><td>".$row['country']." "."</td></tr>";
+		echo "<tr><td><a href=\"".$row[1]['link']."\">".$row[1]['name']."</a> </td><td>".$row[1]['country']."</td><td>".$row[1]['continent']."</td><td>".$row[1]['rating']."</td><td>".$row[1]['price']."</td></tr>";
 	}
 	echo "</table>";
+	echo"<br>";
 
 }
 catch (PDOException $dbse){
