@@ -95,7 +95,7 @@ console.log(javascript_array['America'][0]['attractions'][0]);
 <ul class="nav">
   <li class="navelement"><a class="active" href="#home">Home</a></li>
   <li class="navelement"><a href="about.php">About us</a></li>
-  <li class="navelement"><a href="#about.php">Contact us</a></li>
+  <li class="navelement"><a href="about.php">Contact us</a></li>
   <li class="navelement"><a href="shoppingcart.php">Shopping cart</a></li>
   <li class="navelement"><a href="signup.php">Register a User</a></li>
   <li class="navelement"><a href="dbmaintain.php">Database maintenance</a></li>
