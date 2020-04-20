@@ -12,7 +12,15 @@ $username = "name";
 $password = "cps630cps";
 $dbname = "places";
 function distance($lat1, $longti1, $lat2, $longti2){
-	return 0;
+	$earthRadius = 6371; //in KM
+	$deltaLat = deg2rad($lat2-$lat1);
+	$deltaLon = deg2rad($longti2-$longti1);
+	$a = sin($deltaLat/2) * sin($deltaLat/2) +
+    cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * 
+    sin($deltaLon/2) * sin($deltaLon/2); 
+	$c = 2 * atan2(sqrt($a),sqrt(1-$a));
+	$dis = $earthRadius * $c; 
+	return round($dis, 2);
 }
 //start MYSQL
 try {
