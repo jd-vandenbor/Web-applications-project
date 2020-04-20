@@ -3,16 +3,21 @@
 <head>
   <link rel="stylesheet" href="./home.css">
 <style>
-
+::placeholder {
+  color: #CCC;
+}
 </style>
 </head>
 
 <!-- PHP -->
 <?php
-$servername = "192.168.64.2";
+$servername = "localhost";
 $username = "name";
 $password = "cps630cps";
 $dbname = "places";
+
+session_start();
+$_SESSION['id'] = 1;
 
 
 $conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -77,19 +82,45 @@ echo "var javascript_array = ". $js_array . ";\n";
 ?>
 
 console.log(javascript_array['America'][0]['attractions'][0]);
+
+
+
 </script>
 
 
 
 <body>
-<a href="dbmaintain.php">Database maintenance</a>
-<br>
+
+
 <ul class="nav">
   <li class="navelement"><a class="active" href="#home">Home</a></li>
   <li class="navelement"><a href="#news">About us</a></li>
   <li class="navelement"><a href="#contact">Contact us</a></li>
   <li class="navelement"><a href="#about">Shopping cart</a></li>
+  <li class="navelement"><a href="signup.php">Register a User</a></li>
+  <li class="navelement"><a href="dbmaintain.php">Database maintenance</a></li>
+  <li class="navelement"><a href="advsearch.php">Advanced search</a></li>
 </ul>
+
+
+<hr>
+<?php
+if (isset($_SESSION['user'])) {
+  echo "Welcome " . $_SESSION['user'] . "! Click here to ";
+echo"<a href=\"logout.php\">Sign Out</a> ";
+if($_SESSION['user'] == "admin");
+} else {
+  echo "<form action=\"login.php\" method=\"POST\">";
+  echo "Login:  ";
+  echo "<input type=\"text\" name=\"username\" placeholder=\"username\">";
+  echo "<input type=\"text\" name=\"password\" placeholder=\"password\">";
+  echo "<input type=\"hidden\" name=\"form_submitted\" value=\"1\" />";
+      echo "<input type=\"submit\" value=\"submit\">";
+echo "</form>";
+
+}
+?>
+<hr>
 
 <div class="grid-container">
   <div class="grid-item">
@@ -121,7 +152,7 @@ console.log(javascript_array['America'][0]['attractions'][0]);
         <button class="dropbtn" >Select</button>
         <div class="dropdown-content">
           <a onclick="selectAttraction (0, 'America', 0)" href="#" >CN tower</a>
-          <a onclick="selectAttraction (, 'Africa', 0)" href="#">Amboseli National Park</a>
+          <a onclick="selectAttraction (0, 'Africa', 0)" href="#">Amboseli National Park</a>
           <a onclick="selectAttraction (1, 'America', 0)" href="#">Grand Canyon</a>
           <a onclick="selectAttraction (1, 'America', 1)" href="#">Mount Rushmore</a>
           <a onclick="selectAttraction (1, 'Europe', 0)" href="#">Keukenhof</a>
@@ -131,6 +162,12 @@ console.log(javascript_array['America'][0]['attractions'][0]);
   <div class="grid-item" style="grid-column: 2 / span 2;">
     <h2 id="atrHeadline">Attraction!</h2>
     <img id="atrimg" style="width:50%" class="attractin-img" src="">
+    <hr>
+    <a href="readmore.php">read more</a>
+    <hr>
+    <img id="atrimg2" style="width:30%" class="attractin-img" src="">
+    <img id="atrimg3" style="width:30%" class="attractin-img" src="">
+    <img id="atrimg4" style="width:30%" class="attractin-img" src="">
   </div>
   <!-- <div class="grid-item">6</div>   -->
   <!--<div class="grid-item">7</div>
@@ -149,7 +186,7 @@ console.log(javascript_array['America'][0]['attractions'][0]);
 
 
 <script>
-
+  
   var selectedContinent = "";
   function selectContinent(continent) {
     selectedContinent = continent;
@@ -204,11 +241,35 @@ console.log(javascript_array['America'][0]['attractions'][0]);
   }
 
   function selectAttraction (Countryindex, continent, attractionIndex) {
+    console.log(attractionIndex);
+    sessionStorage.setItem("Countryindex", Countryindex);
+    sessionStorage.setItem("continent", continent);
+    sessionStorage.setItem("attractionIndex", attractionIndex);
+
+
+    if (attractionIndex == 1) { altA = 0} else {altA = 1}
+    if (Countryindex == 1) { altC = 0} else {altC = 1}
     attraction2 = javascript_array[continent][Countryindex]['attractions'][attractionIndex];
+    attraction3 = javascript_array[continent][Countryindex]['attractions'][altA];
+    attraction4 = javascript_array[continent][altC]['attractions'][0];
+    attraction5 = javascript_array[continent][altC]['attractions'][1];
+    
     //change image url
     console.log(attraction2['imageURL']);
     var atrimage = document.getElementById("atrimg");
     atrimage.src = attraction2['imageURL'];
+
+    console.log(attraction3['imageURL']);
+    var atrimage = document.getElementById("atrimg2");
+    atrimage.src = attraction3['imageURL'];
+
+    console.log(attraction4['imageURL']);
+    var atrimage = document.getElementById("atrimg3");
+    atrimage.src = attraction4['imageURL'];
+
+    console.log(attraction5['imageURL']);
+    var atrimage = document.getElementById("atrimg4");
+    atrimage.src = attraction5['imageURL'];
 
     //change headline
     var atrHeadline = document.getElementById("atrHeadline");
@@ -216,8 +277,19 @@ console.log(javascript_array['America'][0]['attractions'][0]);
 
 
 
+
+
   }
 
+  function mysearch(){
+    var inp1 = document.getElementById("inp1").value;
+    var inp2 = document.getElementById("inp2").value;
+    var inp3 = document.getElementById("inp3").value;
+    console.log(inp1)
+    console.log(inp2)
+    console.log(inp3)
+    selectAttraction (inp1, inp2, inp3);
+  }
 </script>
 
 </body>
