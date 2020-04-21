@@ -16,4 +16,4 @@ This is the homepage! You should be able to use the rest of the application norm
 
 - If you want to enter admin mode, there shuld be a record included in the database if you imported it correctly. Simply login with the username: admin password:password
 
-Enjoy!
+thank you!
