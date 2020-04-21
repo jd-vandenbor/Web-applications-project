@@ -49,14 +49,17 @@ try {
 				$scores[$i]+= 5;
 			}elseif(strlen($_POST['name']) < 1){
 				$scores[$i] += 1;
-			}else{$scores[$i] -= 1;}
+			}else{$scores[$i] = -20;}
 		}
 	}
 	//echo"??".$_POST['name']."??";
 	if(isset($_POST['continent'])){
 		for($i = 0; $i < $numofattractions; $i += 1){
-			if($attractions[$i]['continent'] == $_POST['continent']){
-				$scores[$i]+= 1;
+			if(!empty($_POST['continent'])){
+				if($attractions[$i]['continent'] == $_POST['continent']){
+					$scores[$i]+= 1;
+				}else $scores[$i] = -20;
+			
 			}
 		}
 	}
@@ -64,7 +67,9 @@ try {
 		for($i = 0; $i < $numofattractions; $i += 1){
 			if(!empty($_POST['country'])&&strpos(strtolower($attractions[$i]['country']),strtolower($_POST['country'])) !== false){
 				$scores[$i]+= 5;
-			}
+			}elseif(strlen($_POST['country']) < 1){
+				$scores[$i] += 1;
+			}else{$scores[$i] = -20;}
 		}
 	} 
 	for($i = 0; $i < $numofattractions; $i += 1){
@@ -96,7 +101,8 @@ try {
 		}else{
 			$compare = "<a href=\"addcompareattr.php?name=".$row[1]['name']."&mode=remove\">Remove<a>";
 		}
-		echo "<tr><td><a href=\"".$row[1]['link']."\">".$row[1]['name']."</a> </td><td>".$row[1]['country']."</td><td>".$row[1]['continent']."</td><td>".$row[1]['rating']."</td><td>".$row[1]['price']."</td><td>".$compare."</td></tr>";
+		$attlink = "readmore.php?attraction=".$row[1]['name'];
+		echo "<tr><td><a href=\"".$attlink."\">".$row[1]['name']."</a> </td><td>".$row[1]['country']."</td><td>".$row[1]['continent']."</td><td>".$row[1]['rating']."</td><td>".$row[1]['price']."</td><td>".$compare."</td></tr>";
 	}
 	echo "</table>";
 	echo"<br>";
