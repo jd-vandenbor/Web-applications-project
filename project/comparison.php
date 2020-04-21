@@ -48,10 +48,13 @@ try{
 	echo "<table class=\"searchresults\"><tr><th>Name</th><th>Country</th><th>Continent</th><th>Raiting</th><th>Price</th></tr>";
 	
 	if(isset($row1)) {
-		echo "<tr><td><a href=\"".$row1['link']."\">".$row1['name']."</a> </td><td>".$row1['country']."</td><td>".$row1['continent']."</td><td>".$row1['rating']."</td><td>".$row1['price']."</td><td>"."<a href=\"addcompareattr.php?name=".$row1['name']."&mode=remove\">Remove<a>"."</td></tr>";
+		$attlink1 = "readmore.php?attraction=".$row1['name'];
+		echo "<tr><td><a href=\"".$attlink1."\">".$row1['name']."</a> </td><td>".$row1['country']."</td><td>".$row1['continent']."</td><td>".$row1['rating']."</td><td>".$row1['price']."</td><td>"."<a href=\"addcompareattr.php?name=".$row1['name']."&mode=remove\">Remove<a>"."</td></tr>";
 	}
+	
 	if(isset($row2)) {
-		echo "<tr><td><a href=\"".$row2['link']."\">".$row2['name']."</a> </td><td>".$row2['country']."</td><td>".$row2['continent']."</td><td>".$row2['rating']."</td><td>".$row2['price']."</td><td>"."<a href=\"addcompareattr.php?name=".$row2['name']."&mode=remove\">Remove<a>"."</td></tr>";
+		$attlink2 = "readmore.php?attraction=".$row2['name'];
+		echo "<tr><td><a href=\"".$attlink1."\">".$row2['name']."</a> </td><td>".$row2['country']."</td><td>".$row2['continent']."</td><td>".$row2['rating']."</td><td>".$row2['price']."</td><td>"."<a href=\"addcompareattr.php?name=".$row2['name']."&mode=remove\">Remove<a>"."</td></tr>";
 	}
 	echo"</table>";
 	if(isset($_SESSION['attractionA']) && isset($_SESSION['attractionB'])){
