@@ -22,7 +22,7 @@ try{
 	$insertsql = "INSERT INTO reviews (attractionname, username, rating, reviewtext) VALUES('$attractionname', '$username', '$rating', '$reviewtext');";
 	$conn->query($insertsql);
 	//echo "Inserted '$attractionname' successfully $insertsql";
-	header('Location: reviewtest.php');
+	header('Location: readmore.php?attraction='.$attractionname);
 }
 catch (PDOException $dbie){
 	echo "insert failed". $dbie->getMessage();
