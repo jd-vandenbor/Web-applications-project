@@ -1,0 +1,19 @@
+READ ME
+
+To make this project work
+
+
+- Install xampp
+- Places the contents of the github folder into your htdocs/project folder
+- Open up php my admin
+- import a new database
+- choose the file places.sql, (file contained within the zip folder.)
+- import the file
+- Start xampp and go to the dashboard
+- Navigate to http://localhost/project/home.php
+
+This is the homepage! You should be able to use the rest of the application normally
+
+- If you want to enter admin mode, there shuld be a record included in the database if you imported it correctly. Simply login with the username: admin password:password
+
+Enjoy!
