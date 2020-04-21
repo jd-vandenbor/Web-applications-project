@@ -163,7 +163,7 @@ echo "</form>";
     <h2 id="atrHeadline">Attraction!</h2>
     <img id="atrimg" style="width:50%" class="attractin-img" src="">
     <hr>
-    <a href="readmore.php">read more</a>
+    <a id="readlink" href="readmore.php">read more</a>
     <hr>
     <img id="atrimg2" style="width:30%" class="attractin-img" src="">
     <img id="atrimg3" style="width:30%" class="attractin-img" src="">
@@ -274,7 +274,7 @@ echo "</form>";
     //change headline
     var atrHeadline = document.getElementById("atrHeadline");
     atrHeadline.innerHTML = attraction2['name'];
-
+	document.getElementById("readlink").href="readmore.php?attraction="+attraction2['name'];
 
 
 
